@@ -14,6 +14,34 @@ function getAlbumsByID(albumID, cb) {
   _query('SELECT * FROM albums WHERE id = $1', [albumID], cb)
 }
 
+function getUserByID(userID, cb) {
+  _query('SELECT * FROM users WHERE id = $1', [userID], cb)
+}
+
+function createReview(content, userID, albumID, cb) {
+  _query('INSERT INTO reviews (content, user_id, album_id) VALUES ($1, $2, $3) RETURNING *', [content, userID, albumID], cb)
+}
+
+function updateReview(reviewID, content, cb) {
+  _query('UPDATE reviews SET (content) = ($2) WHERE id = $1', [reviewID, content], cb)
+}
+
+function deleteReview(reviewID, cb) {
+  _query('DELETE FROM reviews WHERE id = $1', [reviewID], cb)
+}
+
+function getReviewByID(reviewID, cb) {
+  _query('SELECT * FROM reviews WHERE id = $1', [reviewID], cb)
+}
+
+function getAlbumReviews(albumID, cb) {
+  _query('SELECT * FROM reviews WHERE album_id = $1', [albumID], cb)
+}
+
+function getUserReviews(userID, cb) {
+  _query('SELECT * FROM reviews WHERE user_id = $1', [userID], cb)
+}
+
 function _query(sql, variables, cb) {
   console.log('QUERY ->', sql.replace(/[\n\s]+/g, ' '), variables)
 
@@ -32,4 +60,11 @@ function _query(sql, variables, cb) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
+  getUserByID,
+  createReview,
+  updateReview,
+  deleteReview,
+  getReviewByID,
+  getAlbumReviews,
+  getUserReviews,
 }
