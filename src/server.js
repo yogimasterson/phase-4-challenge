@@ -1,7 +1,6 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
-const db = require('./db')
 const routes = require('./routes')
 
 const port = process.env.PORT || 3000
