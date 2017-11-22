@@ -44,7 +44,9 @@ router.route('/sign-up')
 
 router.route('/sign-in')
   .get((req, res) => {
-    res.render('auth/signin')
+    res.render('auth/signin', {
+      signinAlert: '',
+    })
   })
   .post((req, res) => {
     const {email, password} = req.body
@@ -55,18 +57,62 @@ router.route('/sign-in')
         })
       } else {
         const user = result[0]
-        bcrypt.compare(password, user.password)
-          .then((comparison) => {
-            if (comparison) {
-              req.session.user = user.id
-              res.redirect('/')
-            } else {
-              res.render('/sign-in')
-            }
+        if (user !== undefined) {
+          bcrypt.compare(password, user.password)
+            .then((comparison) => {
+              if (comparison) {
+                req.session.user = user.id
+                res.redirect('/')
+              } else {
+                res.redirect('/sign-in', {
+                  signinAlert: 'Invalid email or password',
+                })
+              }
+            })
+        } else {
+          res.redirect('/sign-in', {
+            signinAlert: 'Invalid email or password',
           })
+        }
       }
     })
   })
+
+router.post('/sign-out', (req, res) => {
+  req.session.destroy(() => {
+    res.redirect('/sign-in')
+  })
+})
+
+router.get('/users/:userID', (req, res) => {
+  const userID = req.params.userID
+  if (req.session.user) {
+    db.getReviewsAndAlbums(userID, (error, result) => {
+      if (error) {
+        res.status(500).render('common/error', {
+          error,
+        })
+      } else {
+        const reviews = result[0]
+
+        db.getUserByID(reviews.user_id, (error, result) => {
+          if (error) {
+            res.status(500).render('common/error', {
+              error,
+            })
+          } else {
+            user = result[0]
+          }
+        })
+        res.render('profile/profile', {
+          reviews,
+        })
+      }
+    })
+  } else {
+    res.redirect('/sign-in')
+  }
+})
 
 router.get('/albums/:albumID', (req, res) => {
   const albumID = req.params.albumID

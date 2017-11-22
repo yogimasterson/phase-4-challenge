@@ -1,0 +1,43 @@
+<%- include ../partials/header.ejs %>
+
+  <div class="profile-row">
+    <div class="user-info col-3">
+      <img src="" height="200px" width="200px" border="4">
+    </div>
+    <div class "user-review-div col-9">
+      <div class="user-info">
+        <h1>
+          <%= reviews.name %>
+        </h1>
+        <h4>Email:
+          <%= reviews.email %>
+        </h4>
+        <h4>Date Joined:
+          <%= reviews.join_date %>
+        </h4>
+      </div>
+      <div class="user-reviews">
+        <h1>Reviews</h1>
+        <% for(var i=0; i < reviews.length; i++) { %>
+          <div class="albumName">
+            <h4>
+              <%= reviews[i].title %>
+            </h4>
+            <h4>
+              <%= reviews[i].content %>
+            </h4>
+            <div>
+              <a class="w3-button w3-green" href="/">
+                <i class="fa fa-pencil-square"> Edit</i>
+              </a>
+              <a class="w3-button w3-orange" href="/">
+                <i class="fa fa-trash"> Delete</i>
+              </a>
+            </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+  </div>
+
+<%- include ../partials/footer.ejs %>
