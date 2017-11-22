@@ -18,6 +18,10 @@ function createUser(name, email, password, cb) {
   _query('INSERT INTO users (name, email, password) VALUES (lower($1), lower($2), $3) RETURNING *', [name, email, password], cb)
 }
 
+function validateUser(email, cb) {
+  _query('SELECT * FROM users WHERE email = $1', [email], cb)
+}
+
 function getUserByID(userID, cb) {
   _query('SELECT * FROM users WHERE id = $1', [userID], cb)
 }
@@ -65,6 +69,7 @@ module.exports = {
   getAlbums,
   getAlbumsByID,
   createUser,
+  validateUser,
   getUserByID,
   createReview,
   updateReview,

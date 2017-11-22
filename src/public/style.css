@@ -29,3 +29,29 @@ html, body {
 .signup-form button {
   margin-top: 20px;
 }
+
+/* sign-in page */
+  
+.sign-in {
+  margin-top: 20px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signin-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signin-form input {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.signin-form button {
+  margin-top: 20px;
+}
