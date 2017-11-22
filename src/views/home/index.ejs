@@ -13,4 +13,17 @@
     <% }) %>
   </div>
 
+  <h2>Reviews</h2>
+
+  <div class="review-list">
+  <% reviews.forEach(function(review) { %>
+    <div>
+      <h5><a href="/users/userID/reviewID"></a></h5>
+      <span><a href="/albums/<%= review.album_id %>"><%= review.title %></a></span>
+      <span><%= review.content %></span>
+      <span><a href="/users/<%= locals.session.user %>">By: <%= review.name %></a></span>
+    </div>
+  <% }) %>
+  </div>
+
 <%- include ../partials/footer.ejs %>

@@ -54,6 +54,10 @@ function getReviewsAndAlbums(userID, cb) {
   _query('SELECT * FROM reviews JOIN albums ON albums.id = reviews.album_id JOIN users ON users.id = reviews.user_id WHERE user_id = $1', [userID], cb)
 }
 
+function getAllReviewsAndAlbums(cb) {
+  _query('SELECT * FROM reviews JOIN albums ON albums.id = reviews.album_id JOIN users ON users.id = reviews.user_id', [], cb)
+}
+
 function _query(sql, variables, cb) {
   console.log('QUERY ->', sql.replace(/[\n\s]+/g, ' '), variables)
 
@@ -82,4 +86,5 @@ module.exports = {
   getAlbumReviews,
   getUserReviews,
   getReviewsAndAlbums,
+  getAllReviewsAndAlbums,
 }

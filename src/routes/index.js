@@ -11,8 +11,17 @@ router.get('/', (req, res) => {
         error,
       })
     } else {
-      res.render('home/index', {
-        albums,
+      db.getAllReviewsAndAlbums((error, reviews) => {
+        if (error) {
+          res.status(500).render('common/error', {
+            error,
+          })
+        } else {
+          res.render('home/index', {
+            albums,
+            reviews,
+          })
+        }
       })
     }
   })
@@ -124,8 +133,18 @@ router.get('/albums/:albumID', (req, res) => {
       })
     } else {
       const album = albums[0]
-      res.render('albums/album', {
-        album,
+      db.getAlbumReviews(albumID, (error, reviews) => {
+        if (error) {
+          res.status(500).render('common/error', {
+            error,
+          })
+        } else {
+          const review = reviews[0]
+          res.render('albums/album', {
+            album,
+            review,
+          })
+        }
       })
     }
   })
