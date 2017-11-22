@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
@@ -12,21 +13,19 @@ const app = express()
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
-app.use(express.static('public'))
-app.use(bodyParser.urlencoded({
-  extended: false,
-}))
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static('./src/public'))
 
 app.use(session({
-  key: user_sid,
   store: new pgSession({
     conString: process.env.DATABASE_URL,
   }),
+  key: 'user_sid',
   secret: process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {
-    maxAge: 600000,
+    maxAge: 30 * 24 * 60 * 60 * 1000,
   },
 }))
 
@@ -38,7 +37,7 @@ app.use((req, res, next) => {
 app.use('/', routes)
 
 app.use((req, res) => {
-  res.status(404).render('not_found')
+  res.status(404).render('common/not_found')
 })
 
 app.listen(port, () => {
