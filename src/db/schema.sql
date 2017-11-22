@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS albums;
 
 CREATE TABLE albums (
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   title VARCHAR(255) NOT NULL,
   artist VARCHAR(255) NOT NULL
 );
@@ -9,9 +9,9 @@ CREATE TABLE albums (
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users (
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
   password VARCHAR(255) NOT NULL,
   join_date TIMESTAMP(0) DEFAULT now()
 );
@@ -19,7 +19,7 @@ CREATE TABLE users (
 DROP TABLE IF EXISTS reviews;
 
 CREATE TABLE reviews (
-  id SERIAL,
+  id SERIAL PRIMARY KEY,
   content TEXT NOT NULL,
   user_id INT REFERENCES users,
   album_id INT REFERENCES albums

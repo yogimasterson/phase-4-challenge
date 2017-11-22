@@ -12,10 +12,12 @@
     "db:drop": "dropdb vinyl",
     "db:schema": "psql -d vinyl < src/db/schema.sql",
     "db:seed": "psql -d vinyl < src/db/albums.sql",
+    "db:session": "psql vinyl < node_modules/connect-pg-simple/table.sql",
     "test": "./node_modules/.bin/eslint src"
   },
   "license": "MIT",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.17.2",
     "connect-pg-simple": "^4.2.1",
     "dotenv": "^4.0.0",

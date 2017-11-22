@@ -1,6 +1,31 @@
 html, body {
-    margin: 0;
-    padding: 0;
-    width: 100vw;
-  }
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+}
+
+/* sign-up page */
   
+.sign-up {
+  margin-top: 20px;
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup-form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.signup-form input {
+  padding: 10px;
+  margin-top: 20px;
+}
+
+.signup-form button {
+  margin-top: 20px;
+}

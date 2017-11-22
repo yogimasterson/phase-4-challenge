@@ -14,6 +14,10 @@ function getAlbumsByID(albumID, cb) {
   _query('SELECT * FROM albums WHERE id = $1', [albumID], cb)
 }
 
+function createUser(name, email, password, cb) {
+  _query('INSERT INTO users (name, email, password) VALUES (lower($1), lower($2), $3) RETURNING *', [name, email, password], cb)
+}
+
 function getUserByID(userID, cb) {
   _query('SELECT * FROM users WHERE id = $1', [userID], cb)
 }
@@ -60,6 +64,7 @@ function _query(sql, variables, cb) {
 module.exports = {
   getAlbums,
   getAlbumsByID,
+  createUser,
   getUserByID,
   createReview,
   updateReview,
